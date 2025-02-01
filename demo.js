@@ -1,15 +1,29 @@
-const productNameInputElement=document.getElementById('product-name');
-const remainingCharsElement=document.getElementById('remaining-chars')
+const productNameInputElement = document.getElementById("product-name");
+const remainingCharsElement = document.getElementById("remaining-chars");
 
-const maxAllowedChars=productNameInputElement.maxLength;
+// console.dir(productNameInputElement);
 
-function updateRemainingCharaters(){
-const enteredText=event.target.vlaue;
-const enteredTextLength= enteredText.length;
+const maxAllowedChars = productNameInputElement.maxLength;
 
-const remainingCharacters=maxAllowedChars-enteredTextLength;
+function updateRemainingCharacters(event) {
+  const enteredText = event.target.value;
+  const enteredTextLength = enteredText.length;
 
-remainingCharsElement.textContent=remainingCharacters;
+  const remainingCharacters = maxAllowedChars - enteredTextLength;
+
+  remainingCharsElement.textContent = remainingCharacters;
+  if (remainingCharacters ==0) {
+    remainingCharsElement.classList.add("error");
+    productNameInputElement.classList.add("error");
+  } else if (remainingCharacters <=10) {
+    remainingCharsElement.classList.add('warning')
+    productNameInputElement.classList.add('warning')
+  } else {
+    remainingCharsElement.classList.remove("warning");
+    productNameInputElement.classList.remove("warning");
+    remainingCharsElement.classList.remove("error");
+    productNameInputElement.classList.remove("error");
+  }
 }
 
-productNameInputElement.addEventListener('input',updateRemainingCharaters)
+productNameInputElement.addEventListener("input", updateRemainingCharacters);
